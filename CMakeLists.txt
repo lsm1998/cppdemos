@@ -7,3 +7,4 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory(lua)
 add_subdirectory(template)
+add_subdirectory(ffmpeg)
