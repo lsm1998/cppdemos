@@ -1,5 +1,8 @@
 # sudo apt install ffmpeg libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavdevice-dev libavfilter-dev libswresample-dev
 
+cmake_minimum_required(VERSION 3.12)
+project(ffmpeg-demos)
+
 find_package(PkgConfig REQUIRED)
 
 pkg_check_modules(FFMPEG REQUIRED IMPORTED_TARGET
@@ -7,11 +10,15 @@ pkg_check_modules(FFMPEG REQUIRED IMPORTED_TARGET
     libavformat
     libavutil
     libswscale
-    libavdevice      # 可选，如需采集设备
-    libavfilter      # 可选，如需滤镜
-    libswresample    # 可选，如需音频重采样
+    libavdevice
+    libavfilter
+    libswresample
 )
 
-add_executable(ffmpeg-demo01 demo01.cpp)
+file(GLOB DEMO_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 
-target_link_libraries(ffmpeg-demo01 PRIVATE PkgConfig::FFMPEG)
+foreach(src ${DEMO_SOURCES})
+    get_filename_component(name ${src} NAME_WE)
+    add_executable(${name} ${src})
+    target_link_libraries(${name} PRIVATE PkgConfig::FFMPEG)
+endforeach()
