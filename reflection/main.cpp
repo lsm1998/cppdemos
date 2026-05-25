@@ -1,6 +1,6 @@
+#include <array>
 #include <meta>
 #include <print>
-#include <array>
 #include <string>
 
 struct Person
@@ -15,13 +15,9 @@ struct FieldInfo
     std::string_view name;
 };
 
-constexpr auto fields = [] {
-
-    auto ms =
-        std::meta::nonstatic_data_members_of(
-            ^^Person,
-            std::meta::access_context::current()
-        );
+constexpr auto fields = []
+{
+    auto ms = std::meta::nonstatic_data_members_of(^^Person, std::meta::access_context::current());
 
     std::array<FieldInfo, 2> result{};
 
@@ -31,18 +27,12 @@ constexpr auto fields = [] {
 
         result[i] = FieldInfo{
 
-            std::string(
-                std::meta::display_string_of(
-                    std::meta::type_of(member)
-                )
-            ),
+            std::string(std::meta::display_string_of(std::meta::type_of(member))),
 
-            std::meta::identifier_of(member)
-        };
+            std::meta::identifier_of(member)};
     }
 
     return result;
-
 }();
 
 int main()
