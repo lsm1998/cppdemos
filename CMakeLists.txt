@@ -11,7 +11,7 @@ add_subdirectory(lua)
 add_subdirectory(template)
 add_subdirectory(ffmpeg)
 
-set(CMAKE_REQUIRED_FLAGS "${CMAKE_REQUIRED_FLAGS} -std=c++2c -freflection")
+set(CMAKE_REQUIRED_FLAGS "${CMAKE_REQUIRED_FLAGS} -std=c++2c -freflection -fmodules-ts")
 check_cxx_source_compiles(
     "
     #include <meta>
